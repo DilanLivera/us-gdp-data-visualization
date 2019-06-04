@@ -8,13 +8,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const yTitle = "Gross Domestic Product";
   const chartTitle = "United States GDP";
   const source = "More Information: http://www.bea.gov/national/pdf/nipaguid.pdf";
-
-  //body styles
-  d3.select("body")
-    .style("display" ,"flex")
-    .style("flex-direction", "column")
-    .style("align-items", "center")
-   
+  
   //get data      
   d3.queue()
     .defer(d3.json, URL)
@@ -31,6 +25,7 @@ document.addEventListener('DOMContentLoaded', () => {
       const svg = d3.select("svg")
                     .attr("width", width)
                     .attr("height", height)
+                    .classed("svg", true)
       
       //add data source text
       svg
@@ -38,18 +33,12 @@ document.addEventListener('DOMContentLoaded', () => {
         .attr("x", innerWidth/2 + 250)
         .attr("y", innerHeight + 85)
         .text(source)
-        .style("font-style", "italic")
+        .style("font-style", "italic")        
 
       
       //add chart title
-      d3.select("#title")
-          .attr("text-anchor", "end")          
-          .attr("y", margin.top)
-          .attr("x", margin.left + 400)
-          .style("text-align", "center")
-          .style("font-weight", "100")
-          .style("font-size", "40px")
-          .style("margin", "0")
+      d3.select("#title")          
+          .classed("title", true)
           .text(chartTitle)
 
       //create scales
@@ -79,26 +68,14 @@ document.addEventListener('DOMContentLoaded', () => {
          .attr("transform", "rotate(-90)")
          .attr("y", margin.left+20)
          .attr("x", margin.top - 60)
+         .classed("x-label", true)
          .text(yTitle)
       
       //tooltip
       var tooltip = d3.select("body")                    
                       .append("div")
                         .attr("id", "tooltip")                        
-                        .style("opacity", 0)
-                        .style("position", "absolute")
-                        .style("pointer-events", "none")                        
-                        .style("background-color", "white")
-                        .style("border", "solid")
-                        .style("border-width", "2px")
-                        .style("border-radius", "5px")
-                        .style("border-color", "lightgrey")
-                        .style("padding", "10px")
-                        .style("margin", "0")
-                        .style("padding-top", "0")
-                        .style("padding-bottom", "0")
-                        .style("text-align", "center")
-                        .style("font-family", "monospace")
+                        .classed("tooltip", true);
 
       svg.selectAll('.bar')
          .data(data)
